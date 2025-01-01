@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Books to Inventory</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f0ff;
+        }
+
+        header {
+            background: linear-gradient(90deg, #FF416C, #833AB4);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin-top: 20px;
+            font-size: 36px;
+            font-weight: bold;
+        }
+
+        .form-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 50px;
+        }
+
+        .form-card {
+            background: linear-gradient(135deg, #fce4ec, #f8bbd0);
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            margin: 20px;
+            padding: 30px;
+            width: 350px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .form-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .form-card h2 {
+            color: #D81B60;
+        }
+
+        .form-card p {
+            color: #4a4a4a;
+            font-size: 16px;
+        }
+
+        .form-card .icon {
+            font-size: 50px;
+            color: #D500F9;
+            margin-bottom: 10px;
+        }
+
+        .form-input {
+            margin-bottom: 15px;
+            width: 80%;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        .scanner-btn {
+            background-color: #D81B60;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+            margin-top: 10px;
+        }
+
+        .scanner-btn:hover {
+            background-color: #FF416C;
+            transform: scale(1.05);
+        }
+
+        .form-submit {
+            background: linear-gradient(90deg, #FF416C, #833AB4);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .form-submit:hover {
+            background: linear-gradient(90deg, #833AB4, #FF416C);
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Add Book to Inventory</h1>
+    </header>
+
+    <div class="form-container">
+        <div class="form-card">
+            <h2>Enter or Scan Book Code</h2>
+            <p>Enter the ISBN or scan the code to add the book to the inventory</p>
+            
+            <!-- Input for ISBN or Code -->
+            <input type="text" class="form-input" placeholder="Enter ISBN or Scan">
+
+            <!-- Dummy Scanner Button -->
+
+            <button class="form-submit">Add Book</button>
+        </div>
+    </div>
+</body>
+
+</html>

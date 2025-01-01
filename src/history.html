@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sold Books Status</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+
+        header {
+            background: linear-gradient(90deg, #6a11cb, #2575fc);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: #fff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            text-align: left;
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #6a11cb;
+            color: white;
+        }
+
+        .status-sold {
+            color: #d32f2f;
+            font-weight: bold;
+        }
+
+        .status-available {
+            color: #388e3c;
+            font-weight: bold;
+        }
+
+        .filters {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .filters select, .filters input {
+            padding: 10px;
+            margin: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .export-btn {
+            background: linear-gradient(90deg, #2575fc, #6a11cb);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .export-btn:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Sold Books Status</h1>
+    </header>
+    <div class="container">
+        <div class="filters">
+            <div>
+                <label for="filter-category">Category:</label>
+                <select id="filter-category">
+                    <option value="all">All</option>
+                    <option value="fiction">Fiction</option>
+                    <option value="non-fiction">Non-Fiction</option>
+                    <option value="sci-fi">Sci-Fi</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="filter-status">Status:</label>
+                <select id="filter-status">
+                    <option value="all">All</option>
+                    <option value="sold">Sold</option>
+                    <option value="available">Available</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="filter-date">Sale Date:</label>
+                <input type="date" id="filter-date">
+            </div>
+
+            <div>
+                <button class="export-btn">Export to CSV</button>
+            </div>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ISBN</th>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Category</th>
+                    <th>Status</th>
+                    <th>Quantity</th>
+                    <th>Sale Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>978-3-16-148410-0</td>
+                    <td>Harry Potter and the Goblet of Fire</td>
+                    <td>J.K. Rowling</td>
+                    <td>Fiction</td>
+                    <td class="status-sold">Sold</td>
+                    <td>0</td>
+                    <td>2025-01-01</td>
+                </tr>
+                <tr>
+                    <td>978-1-23-456789-0</td>
+                    <td>Introduction to Algorithms</td>
+                    <td>Cormen et al.</td>
+                    <td>Non-Fiction</td>
+                    <td class="status-available">Available</td>
+                    <td>5</td>
+                    <td>-</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>

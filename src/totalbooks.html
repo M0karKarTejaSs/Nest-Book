@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Total Books - Inventory</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f0ff;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: linear-gradient(90deg, #FF416C, #833AB4);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin-top: 20px;
+            font-size: 36px;
+            font-weight: bold;
+        }
+
+        .filter-container {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .filter-container input,
+        .filter-container select {
+            padding: 10px;
+            margin: 5px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+        }
+
+        .filter-container button {
+            padding: 10px 20px;
+            background-color: #D81B60;
+            color: white;
+            border: none;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .filter-container button:hover {
+            background-color: #FF416C;
+            transform: scale(1.05);
+        }
+
+        .books-table {
+            width: 90%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            table-layout: fixed;
+        }
+
+        .books-table th,
+        .books-table td {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #ddd;
+            font-size: 16px;
+        }
+
+        .books-table th {
+            background-color: #D81B60;
+            color: white;
+            cursor: pointer;
+        }
+
+        .books-table td {
+            background-color: #f9f0ff;
+        }
+
+        .books-table th.sortable:hover {
+            background-color: #FF416C;
+        }
+
+        .clear-btn {
+            padding: 10px 20px;
+            background-color: #FF416C;
+            color: white;
+            border: none;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .clear-btn:hover {
+            background-color: #833AB4;
+            transform: scale(1.05);
+        }
+
+        .clear-btn-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Total Books in Inventory</h1>
+    </header>
+
+    <!-- Filter Section -->
+    <div class="filter-container">
+        <input type="text" id="searchInput" placeholder="Search by name, ISBN, title, or author" onkeyup="filterBooks()">
+        <select id="categorySelect" onchange="filterBooks()">
+            <option value="">Filter by Category</option>
+            <option value="Fiction">Fiction</option>
+            <option value="Programming">Programming</option>
+            <option value="Data Science">Data Science</option>
+            <option value="Java">Java</option>
+            <option value="Python">Python</option>
+        </select>
+        <select id="sortSelect" onchange="sortBooks()">
+            <option value="nameAsc">Sort by Name (A-Z)</option>
+            <option value="nameDesc">Sort by Name (Z-A)</option>
+            <option value="priceAsc">Sort by Price (Low-High)</option>
+            <option value="priceDesc">Sort by Price (High-Low)</option>
+            <option value="quantityAsc">Sort by Quantity (Low-High)</option>
+            <option value="quantityDesc">Sort by Quantity (High-Low)</option>
+        </select>
+        <button onclick="clearFilters()">Clear Filters</button>
+    </div>
+
+    <!-- Books Table -->
+    <table class="books-table">
+        <thead>
+            <tr>
+                <th class="sortable" onclick="sortBooks('name')">Book Name</th>
+                <th class="sortable" onclick="sortBooks('isbn')">ISBN</th>
+                <th class="sortable" onclick="sortBooks('author')">Author</th>
+                <th class="sortable" onclick="sortBooks('price')">Price</th>
+                <th class="sortable" onclick="sortBooks('quantity')">Quantity</th>
+                <th class="sortable" onclick="sortBooks('category')">Category</th>
+            </tr>
+        </thead>
+        <tbody id="booksTableBody">
+            <tr data-category="Fiction">
+                <td>The Great Adventure</td>
+                <td>978-0-123456-47-2</td>
+                <td>John Doe</td>
+                <td>$19.99</td>
+                <td>50</td>
+                <td>Fiction</td>
+            </tr>
+            <tr data-category="Programming">
+                <td>Mastering Coding</td>
+                <td>978-0-234567-89-4</td>
+                <td>Jane Smith</td>
+                <td>$29.99</td>
+                <td>30</td>
+                <td>Programming</td>
+            </tr>
+            <tr data-category="Python">
+                <td>Learning Python</td>
+                <td>978-0-345678-12-6</td>
+                <td>Emily White</td>
+                <td>$24.99</td>
+                <td>15</td>
+                <td>Python</td>
+            </tr>
+            <tr data-category="Java">
+                <td>Java Programming</td>
+                <td>978-0-456789-34-5</td>
+                <td>Michael Brown</td>
+                <td>$39.99</td>
+                <td>20</td>
+                <td>Java</td>
+            </tr>
+            <tr data-category="Data Science">
+                <td>Data Science Guide</td>
+                <td>978-0-567890-56-7</td>
+                <td>Daniel Lee</td>
+                <td>$49.99</td>
+                <td>10</td>
+                <td>Data Science</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="clear-btn-container">
+        <button class="clear-btn" onclick="clearFilters()">Clear Filters</button>
+    </div>
+
+    <script>
+        // Filter Function
+        function filterBooks() {
+            let input = document.getElementById("searchInput");
+            let filter = input.value.toLowerCase();
+            let categorySelect = document.getElementById("categorySelect");
+            let categoryFilter = categorySelect.value;
+            let table = document.getElementById("booksTableBody");
+            let tr = table.getElementsByTagName("tr");
+
+            for (let i = 0; i < tr.length; i++) {
+                let td = tr[i].getElementsByTagName("td");
+                let matchFound = false;
+
+                // Check if any cell matches the filter text
+                for (let j = 0; j < td.length; j++) {
+                    if (td[j].textContent.toLowerCase().indexOf(filter) > -1) {
+                        matchFound = true;
+                    }
+                }
+
+                // Check category filter
+                if (categoryFilter && tr[i].getAttribute('data-category') !== categoryFilter) {
+                    matchFound = false;
+                }
+
+                if (matchFound) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+
+        // Sort Books Function
+        function sortBooks() {
+            let sortSelect = document.getElementById("sortSelect");
+            let sortOption = sortSelect.value;
+            let table = document.getElementById("booksTableBody");
+            let rows = Array.from(table.rows);
+            let sortColumn;
+
+            switch (sortOption) {
+                case "nameAsc":
+                    sortColumn = 0;
+                    break;
+                case "nameDesc":
+                    sortColumn = 0;
+                    rows.reverse();
+                    break;
+                case "priceAsc":
+                    sortColumn = 3;
+                    break;
+                case "priceDesc":
+                    sortColumn = 3;
+                    rows.reverse();
+                    break;
+                case "quantityAsc":
+                    sortColumn = 4;
+                    break;
+                case "quantityDesc":
+                    sortColumn = 4;
+                    rows.reverse();
+                    break;
+            }
+
+            rows.sort((a, b) => {
+                let cellA = a.cells[sortColumn].textContent.trim();
+                let cellB = b.cells[sortColumn].textContent.trim();
+
+                if (sortOption.includes('price')) {
+                    cellA = parseFloat(cellA.replace('$', ''));
+                    cellB = parseFloat(cellB.replace('$', ''));
+                } else if (sortOption.includes('quantity')) {
+                    cellA = parseInt(cellA, 10);
+                    cellB = parseInt(cellB, 10);
+                }
+
+                return cellA > cellB ? 1 : -1;
+            });
+
+            // Re-render sorted rows
+            rows.forEach(row => table.appendChild(row));
+        }
+
+        // Clear Filters
+        function clearFilters() {
+            document.getElementById("searchInput").value = "";
+            document.getElementById("categorySelect").selectedIndex = 0;
+            document.getElementById("sortSelect").selectedIndex = 0;
+            filterBooks();
+        }
+    </script>
+
+</body>
+
+</html>

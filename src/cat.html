@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Categories</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f0ff;
+        }
+
+        header {
+            background: linear-gradient(90deg, #FF416C, #833AB4);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin-top: 20px;
+            font-size: 36px;
+            font-weight: bold;
+        }
+
+        .form-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .category-card {
+            background: linear-gradient(135deg, #fce4ec, #f8bbd0);
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            margin: 20px;
+            padding: 30px;
+            width: 250px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .category-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .category-card h2 {
+            color: #D81B60;
+        }
+
+        .category-card p {
+            color: #4a4a4a;
+            font-size: 16px;
+        }
+
+        .category-card .icon {
+            font-size: 50px;
+            color: #D500F9;
+            margin-bottom: 10px;
+        }
+
+        .btn {
+            background: linear-gradient(90deg, #FF416C, #833AB4);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-decoration: none;
+            font-size: 16px;
+            border-radius: 8px;
+            margin-top: 20px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        .btn:hover {
+            background: linear-gradient(90deg, #833AB4, #FF416C);
+            transform: scale(1.05);
+        }
+
+        .search-bar {
+            width: 80%;
+            padding: 10px;
+            margin: 20px 0;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .form-submit {
+            background: linear-gradient(90deg, #FF416C, #833AB4);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .form-submit:hover {
+            background: linear-gradient(90deg, #833AB4, #FF416C);
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Manage Categories</h1>
+    </header>
+
+    <div class="search-container">
+        <input type="text" class="search-bar" id="search-category" placeholder="Search categories...">
+    </div>
+
+    <div class="form-container">
+        <!-- Category Card 1 -->
+        <div class="category-card">
+            <div class="icon">📚</div>
+            <h2>Fiction</h2>
+            <p>5 Books</p>
+            <button class="btn" onclick="viewCategory('fiction')">View Books</button>
+            <button class="btn" onclick="editCategory('fiction')">Edit</button>
+            <button class="btn" onclick="deleteCategory('fiction')">Delete</button>
+        </div>
+
+        <!-- Category Card 2 -->
+        <div class="category-card">
+            <div class="icon">📖</div>
+            <h2>Non-Fiction</h2>
+            <p>3 Books</p>
+            <button class="btn" onclick="viewCategory('non-fiction')">View Books</button>
+            <button class="btn" onclick="editCategory('non-fiction')">Edit</button>
+            <button class="btn" onclick="deleteCategory('non-fiction')">Delete</button>
+        </div>
+
+        <!-- Add New Category -->
+        <div class="category-card">
+            <div class="icon">➕</div>
+            <h2>Add New Category</h2>
+            <button class="btn" onclick="openAddCategoryModal()">Add Category</button>
+        </div>
+    </div>
+
+    <!-- Add Category Modal -->
+    <div id="addCategoryModal" style="display: none;">
+        <div style="background-color: rgba(0, 0, 0, 0.5); padding: 20px; position: fixed; top: 0; left: 0; right: 0; bottom: 0;">
+            <div style="background-color: white; padding: 20px; margin: 10% auto; width: 300px; border-radius: 8px;">
+                <h2>Add New Category</h2>
+                <input type="text" id="new-category-name" class="search-bar" placeholder="Enter category name">
+                <button class="form-submit" onclick="addCategory()">Save</button>
+                <button class="form-submit" onclick="closeAddCategoryModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Search category filter
+        document.getElementById('search-category').addEventListener('input', function() {
+            const searchQuery = this.value.toLowerCase();
+            const categoryCards = document.querySelectorAll('.category-card');
+            categoryCards.forEach(card => {
+                const categoryName = card.querySelector('h2').textContent.toLowerCase();
+                if (categoryName.includes(searchQuery)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+
+        // Add Category Modal Functions
+        function openAddCategoryModal() {
+            document.getElementById('addCategoryModal').style.display = 'block';
+        }
+
+        function closeAddCategoryModal() {
+            document.getElementById('addCategoryModal').style.display = 'none';
+        }
+
+        function addCategory() {
+            const newCategoryName = document.getElementById('new-category-name').value;
+            if (newCategoryName) {
+                alert('New category "' + newCategoryName + '" added!');
+                closeAddCategoryModal();
+                // Add the new category to the database here
+            } else {
+                alert('Please enter a category name');
+            }
+        }
+
+        // Dummy functions for View, Edit, and Delete
+        function viewCategory(category) {
+            alert('View books under ' + category + ' category');
+        }
+
+        function editCategory(category) {
+            alert('Edit category ' + category);
+        }
+
+        function deleteCategory(category) {
+            const confirmation = confirm('Are you sure you want to delete ' + category + ' category?');
+            if (confirmation) {
+                alert('Category ' + category + ' deleted!');
+                // Handle deletion here
+            }
+        }
+    </script>
+</body>
+
+</html>

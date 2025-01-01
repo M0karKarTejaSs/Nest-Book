@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory Management</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+
+        header {
+            background: linear-gradient(90deg, #FF416C, #833AB4);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 36px;
+        }
+
+        .search-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .search-box {
+            padding: 10px;
+            width: 300px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-right: 10px;
+        }
+
+        .search-btn {
+            padding: 10px 20px;
+            background-color: #833AB4;
+            color: white;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .search-btn:hover {
+            background-color: #FF416C;
+        }
+
+        .inventory-table {
+            width: 80%;
+            margin: 30px auto;
+            border-collapse: collapse;
+        }
+
+        .inventory-table th, .inventory-table td {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        .inventory-table th {
+            background-color: #f2f2f2;
+        }
+
+        .low-stock {
+            color: red;
+            font-weight: bold;
+        }
+
+        .pagination {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .pagination a {
+            padding: 10px 15px;
+            text-decoration: none;
+            background-color: #833AB4;
+            color: white;
+            border-radius: 5px;
+            margin: 5px;
+            transition: background 0.3s ease;
+        }
+
+        .pagination a:hover {
+            background-color: #FF416C;
+        }
+
+        .add-book-btn {
+            display: block;
+            width: 200px;
+            margin: 30px auto;
+            padding: 12px;
+            background-color: #FF416C;
+            color: white;
+            font-size: 18px;
+            text-align: center;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .add-book-btn:hover {
+            background-color: #833AB4;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Book Inventory</h1>
+    <p>Manage your book stock easily</p>
+</header>
+
+<div class="search-container">
+    <input type="text" id="searchBox" class="search-box" placeholder="Search by Title or Author">
+    <button class="search-btn" onclick="searchInventory()">Search</button>
+    <a href="history.html"><button class="search-btn" onclick="searchInventory()">Status Of Books</button></a>
+
+</div>
+
+<table class="inventory-table">
+    <thead>
+        <tr>
+            <th>Book Title</th>
+            <th>Author</th>
+            <th>Version</th>
+            <th>Price</th>
+            <th>Stock Quantity</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody id="inventoryList">
+        <!-- Book Data Goes Here -->
+        <tr>
+            <td>Book 1</td>
+            <td>Author A</td>
+            <td>1st Edition</td>
+            <td>$15.00</td>
+            <td class="low-stock">5</td>
+            <td><button>Edit</button> <button>Delete</button></td>
+        </tr>
+        <tr>
+            <td>Book 2</td>
+            <td>Author B</td>
+            <td>2nd Edition</td>
+            <td>$20.00</td>
+            <td>50</td>
+            <td><button>Edit</button> <button>Delete</button></td>
+        </tr>
+        <tr>
+            <td>Book 3</td>
+            <td>Author C</td>
+            <td>3rd Edition</td>
+            <td>$25.00</td>
+            <td>10</td>
+            <td><button>Edit</button> <button>Delete</button></td>
+        </tr>
+        <!-- More rows can be added dynamically -->
+    </tbody>
+</table>
+
+<div class="pagination">
+    <a href="#">&laquo; Previous</a>
+    <a href="#">1</a>
+    <a href="#">2</a>
+    <a href="#">3</a>
+    <a href="#">Next &raquo;</a>
+</div>
+
+<!-- Add New Book Button -->
+<div class="add-book-btn" onclick="window.location.href='addbook.html'">
+    Add New Book
+</div>
+
+<script>
+    function searchInventory() {
+        const query = document.getElementById('searchBox').value.toLowerCase();
+        const rows = document.querySelectorAll('#inventoryList tr');
+        rows.forEach(row => {
+            const title = row.cells[0].textContent.toLowerCase();
+            const author = row.cells[1].textContent.toLowerCase();
+            if (title.includes(query) || author.includes(query)) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    }
+</script>
+
+</body>
+</html>

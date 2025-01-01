@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f0ff;
+        }
+
+        header {
+            background: linear-gradient(90deg, #FF416C, #833AB4);
+            color: white;
+            padding: 40px 20px;
+            /* Increased padding for more space */
+            text-align: center;
+        }
+
+        header img {
+            width: 50px;
+            /* Adjust the logo size */
+            vertical-align: middle;
+            margin-right: 10px;
+        }
+
+        header h1 {
+            margin-top: 20px;
+            /* Added margin for spacing */
+            font-size: 36px;
+            font-weight: bold;
+        }
+
+        header p {
+            font-size: 18px;
+            margin-top: 10px;
+        }
+
+        .dashboard-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .card {
+            background: linear-gradient(135deg, #fce4ec, #f8bbd0);
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            margin: 15px;
+            padding: 20px;
+            width: 250px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .card h2 {
+            margin: 10px 0;
+            color: #D81B60;
+        }
+
+        .card p {
+            color: #4a4a4a;
+            font-size: 16px;
+        }
+
+        .card .icon {
+            font-size: 50px;
+            color: #D500F9;
+            margin-bottom: 10px;
+        }
+
+        .btn {
+            background: linear-gradient(90deg, #FF416C, #833AB4);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-decoration: none;
+            font-size: 16px;
+            border-radius: 8px;
+            margin-top: 20px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        .btn:hover {
+            background: linear-gradient(90deg, #833AB4, #FF416C);
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Test Book</h1>
+        <p>Inventory Management System for Books</p>
+        <div style="position: absolute; top: 20px; right: 20px;">
+            <select id="languageSelector" onchange="changeLanguage()"
+                style="padding: 8px; font-size: 16px; border-radius: 5px;">
+                <option value="en">English</option>
+                <option value="hi">हिन्दी</option>
+                <option value="mr">मराठी</option>
+            </select>
+        </div>
+    </header>
+    <div class="dashboard-container">
+        <!-- Total Books Card -->
+        <div class="card">
+            <div class="icon">📚</div>
+            <a href="./src/totalbooks.html" style="text-decoration: none; color: inherit;">
+                <h2>Total Books</h2>
+                <p>120 Books</p>
+            </a>
+        </div>
+
+        <div class="card">
+            <div class="icon">➕</div>
+            <!-- <h2>Add Books</h2> -->
+            <a style="text-decoration:none" href="./src/addbook.html">
+                <h2>Add Books</h2>
+                <p>Add new books to inventory</p>
+            </a>
+        </div>
+        <!-- Categories of Books Card -->
+        <div class="card">
+            <div class="icon">📂</div>
+            <a style="text-decoration:none" href="./src/cat.html">
+                <h2>Categories</h2>
+                <p>Fiction, Non-Fiction, Sci-Fi</p>
+            </a>
+        </div>
+
+        <!-- Add Books Card -->
+
+    </div>
+    <div style="text-align: center; margin-top: 40px;">
+        <a href="./src/inventory.html" class="btn">Go to Inventory</a>
+    </div>
+</body>
+<script>
+    // Function to change the language
+    function changeLanguage() {
+        var selectedLang = document.getElementById('languageSelector').value;
+
+        // Simple logic to reload page with selected language (In practice, you can load translations here)
+        switch (selectedLang) {
+            case 'en':
+                location.href = 'index_en.html';  // Redirect to English version of the page
+                break;
+            case 'hi':
+                location.href = 'index_hi.html';  // Redirect to Hindi version of the page
+                break;
+            case 'mr':
+                location.href = 'index_mr.html';  // Redirect to Marathi version of the page
+                break;
+            default:
+                location.href = 'index_en.html';  // Default to English
+        }
+    }
+</script>
+
+</html>
